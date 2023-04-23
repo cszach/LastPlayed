@@ -17,6 +17,8 @@ private val TAG = "com.dnguy38.lastplayed.data.LoginDataSource"
 class LoginDataSource {
 
     fun login(username: String, password: String): Result<LoggedInUser> {
+        // val fakeUser = LoggedInUser("john_doe")
+        // return Result.Success(fakeUser)
 
         val applicationSharedPreferences = Application.instance.sharedPreferences
 

@@ -1,6 +1,7 @@
 package com.dnguy38.lastplayed.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import com.dnguy38.lastplayed.MainActivity
 import com.dnguy38.lastplayed.databinding.ActivityLoginBinding
 
 import com.dnguy38.lastplayed.R
@@ -62,7 +64,7 @@ class LoginActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
-            finish()
+            // finish()
         })
 
         username.afterTextChanged {
@@ -107,6 +109,9 @@ class LoginActivity : AppCompatActivity() {
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
+
+        val main = Intent(applicationContext, MainActivity::class.java)
+        startActivity(main)
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
