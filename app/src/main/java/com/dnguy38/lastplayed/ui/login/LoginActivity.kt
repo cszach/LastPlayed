@@ -32,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
         val username = binding.username
         val password = binding.password
         val login = binding.login
+        val continueWithoutSigningIn = binding.continueWithoutSigningIn
         val loading = binding.loading
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
@@ -97,7 +98,16 @@ class LoginActivity : AppCompatActivity() {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
             }
+
+            continueWithoutSigningIn?.setOnClickListener {
+                updateUi()
+            }
         }
+    }
+
+    private fun updateUi() {
+        val main = Intent(applicationContext, MainActivity::class.java)
+        startActivity(main)
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
@@ -110,8 +120,7 @@ class LoginActivity : AppCompatActivity() {
             Toast.LENGTH_LONG
         ).show()
 
-        val main = Intent(applicationContext, MainActivity::class.java)
-        startActivity(main)
+        updateUi()
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
