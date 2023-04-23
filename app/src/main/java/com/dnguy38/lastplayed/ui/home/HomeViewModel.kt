@@ -22,7 +22,7 @@ class HomeViewModel : ViewModel() {
     private val _topArtists = MutableLiveData<List<TopArtist>>()
     val topArtists: LiveData<List<TopArtist>> = _topArtists
 
-    private lateinit var country: String
+    lateinit var country: String
 
     init {
         val retrofit = Retrofit.Builder()

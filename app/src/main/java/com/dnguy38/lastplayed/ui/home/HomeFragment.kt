@@ -37,8 +37,13 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
+        val topTracksText = binding.topTracksTextView
         val topTracks = binding.topTracks
+        val topArtistsText = binding.topArtistsTextView
         val topArtists = binding.topArtists
+
+        topTracksText.text = getString(R.string.text_geo_top_tracks, viewModel.country)
+        topArtistsText.text = getString(R.string.text_geo_top_artists, viewModel.country)
 
         topTracks.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

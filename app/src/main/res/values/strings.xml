@@ -13,6 +13,6 @@
     <string name="invalid_password">Field cannot be empty</string>
     <string name="login_failed">"Login failed"</string>
     <string name="action_continue_without_signing_in">Continue without signing in</string>
-    <string name="text_top_tracks">Top Tracks</string>
-    <string name="text_top_artists">Top Artists</string>
+    <string name="text_geo_top_tracks">Top Tracks in %s</string>
+    <string name="text_geo_top_artists">Top Artists in %s</string>
 </resources>
