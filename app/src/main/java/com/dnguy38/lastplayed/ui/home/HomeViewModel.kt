@@ -37,6 +37,8 @@ class HomeViewModel : ViewModel() {
             ) {
                 response.body()?.let {
                     _topTracks.value = it.tracks.track
+
+                    Log.d(TAG, it.toString())
                 }
             }
 
@@ -52,6 +54,8 @@ class HomeViewModel : ViewModel() {
             ) {
                 response.body()?.let {
                     _topArtists.value = it.topArtists.artist
+
+                    Log.d(TAG, it.toString())
                 }
             }
 
