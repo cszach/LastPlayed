@@ -1,7 +1,8 @@
 package com.dnguy38.lastplayed.data
 
 import com.dnguy38.lastplayed.data.last_fm.MobileSessionResponse
-import com.dnguy38.lastplayed.data.last_fm.TopTracksResponse
+import com.dnguy38.lastplayed.data.last_fm.responses.TopArtistsResponse
+import com.dnguy38.lastplayed.data.last_fm.responses.TopTracksResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -17,11 +18,19 @@ interface LastFmApi {
     ): Call<MobileSessionResponse>
 
     @GET("?method=geo.gettoptracks&format=json")
-    fun getTopTracks(
+    fun geoGetTopTracks(
         @Query("country") country: String,
         @Query("location") location: String?,
         @Query("limit") resultsPerPage: Int?,
         @Query("page") pageNumber: Int?,
         @Query("api_key") apiKey: String
     ): Call<TopTracksResponse>
+
+    @GET("?method=geo.gettopartists&format=json")
+    fun geoGetTopArtists(
+        @Query("country") country: String,
+        @Query("limit") limit: Int?,
+        @Query("page") page: Int?,
+        @Query("api_key") apiKey: String
+    ): Call<TopArtistsResponse>
 }

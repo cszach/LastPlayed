@@ -14,4 +14,5 @@
     <string name="login_failed">"Login failed"</string>
     <string name="action_continue_without_signing_in">Continue without signing in</string>
     <string name="text_top_tracks">Top Tracks</string>
+    <string name="text_top_artists">Top Artists</string>
 </resources>
