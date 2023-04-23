@@ -2,6 +2,8 @@ package com.dnguy38.lastplayed.data
 
 import android.util.Log
 import androidx.core.content.edit
+import com.dnguy38.lastplayed.data.last_fm.MobileSession
+import com.dnguy38.lastplayed.data.last_fm.MobileSessionResponse
 import com.dnguy38.lastplayed.data.model.LoggedInUser
 import com.dnguy38.lastplayed.LastFmApplication.Companion as Application
 import retrofit2.Response
@@ -47,9 +49,9 @@ class LoginDataSource {
         Log.d(TAG, response.toString())
 
         if (response.isSuccessful) {
-            val body = response.body()
-            val lastFmMobileSession: MobileSession =
-                body?.session ?: return Result.Error(IOException("Error logging in"))
+            val body = response.body() ?: return Result.Error(IOException("Error logging in"))
+
+            val lastFmMobileSession: MobileSession = body.session
 
             applicationSharedPreferences.edit {
                 putString("session_key", lastFmMobileSession.key)

@@ -13,4 +13,5 @@
     <string name="invalid_password">Field cannot be empty</string>
     <string name="login_failed">"Login failed"</string>
     <string name="action_continue_without_signing_in">Continue without signing in</string>
+    <string name="text_top_tracks">Top Tracks</string>
 </resources>
