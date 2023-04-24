@@ -1,19 +1,19 @@
 <resources>
     <!-- Limit Preference -->
 
-    <integer-array name="limit_entries">
+    <string-array name="limit_entries">
         <item>10</item>
         <item>20</item>
         <item>30</item>
         <item>40</item>
         <item>50</item>
-    </integer-array>
+    </string-array>
 
     <string-array name="limit_values">
-        <item>limit_10</item>
-        <item>limit_20</item>
-        <item>limit_30</item>
-        <item>limit_40</item>
-        <item>limit_50</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
     </string-array>
 </resources>

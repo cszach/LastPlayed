@@ -19,19 +19,19 @@ class SearchViewModel : ViewModel() {
     private val _searchResults = MutableLiveData<SearchResults>()
     val searchResults: LiveData<SearchResults> = _searchResults
 
-    fun search(query: String, type: SearchType) {
+    fun search(query: String, limit: Int, type: SearchType) {
         val apiKey = Application.instance.sharedPreferences.getString("api_key", null)
             ?: throw IllegalStateException("API key not found in shared preferences")
 
         when (type) {
-            SearchType.Album -> searchAlbum(query, apiKey)
-            SearchType.Artist -> searchArtist(query, apiKey)
-            SearchType.Track -> searchTrack(query, apiKey)
+            SearchType.Album -> searchAlbum(query, limit, apiKey)
+            SearchType.Artist -> searchArtist(query, limit, apiKey)
+            SearchType.Track -> searchTrack(query, limit, apiKey)
         }
     }
 
-    private fun searchAlbum(query: String, apiKey: String) {
-        val albumSearchRequest = Application.api.albumSearch(null, null, query, apiKey)
+    private fun searchAlbum(query: String, limit: Int, apiKey: String) {
+        val albumSearchRequest = Application.api.albumSearch(limit, null, query, apiKey)
 
         albumSearchRequest.enqueue(object : Callback<AlbumSearchResponse> {
             override fun onResponse(
@@ -56,8 +56,8 @@ class SearchViewModel : ViewModel() {
         })
     }
 
-    private fun searchArtist(query: String, apiKey: String) {
-        val artistSearchRequest = Application.api.artistSearch(null, null, query, apiKey)
+    private fun searchArtist(query: String, limit: Int, apiKey: String) {
+        val artistSearchRequest = Application.api.artistSearch(limit, null, query, apiKey)
 
         artistSearchRequest.enqueue(object : Callback<ArtistSearchResponse> {
             override fun onResponse(
@@ -82,8 +82,8 @@ class SearchViewModel : ViewModel() {
         })
     }
 
-    private fun searchTrack(query: String, apiKey: String) {
-        val trackSearchRequest = Application.api.trackSearch(null, null, query, null, apiKey)
+    private fun searchTrack(query: String, limit: Int, apiKey: String) {
+        val trackSearchRequest = Application.api.trackSearch(limit, null, query, null, apiKey)
 
         trackSearchRequest.enqueue(object : Callback<TrackSearchResponse> {
             override fun onResponse(

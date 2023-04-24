@@ -3,7 +3,7 @@
 
     <PreferenceCategory app:title="@string/search_header">
         <ListPreference
-            android:defaultValue="limit_30"
+            android:defaultValue="30"
             android:entries="@array/limit_entries"
             android:entryValues="@array/limit_values"
             android:key="limit"

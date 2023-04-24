@@ -1,6 +1,7 @@
 package com.dnguy38.lastplayed.ui.search
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -14,6 +15,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.MutableLiveData
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dnguy38.lastplayed.R
@@ -30,6 +32,9 @@ class SearchFragment : Fragment() {
 
     private lateinit var viewModel: SearchViewModel
     private lateinit var binding: FragmentSearchBinding
+    private val preferences: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(requireActivity())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,12 +84,14 @@ class SearchFragment : Fragment() {
 
     fun search(query: String) {
         val spinner = binding.searchTypeSpinner
+        val limit = preferences.getString("limit", "30")!!.toInt()
 
-        when (spinner.selectedItemPosition) {
-            0 -> viewModel.search(query, SearchType.Album)
-            1 -> viewModel.search(query, SearchType.Artist)
-            2 -> viewModel.search(query, SearchType.Track)
-        }
+        viewModel.search(query, limit, when (spinner.selectedItemPosition) {
+            0 -> SearchType.Album
+            1 -> SearchType.Artist
+            2 -> SearchType.Track
+            else -> throw IllegalStateException("Unexpected item position")
+        })
     }
 
     private inner class SearchResultsViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
