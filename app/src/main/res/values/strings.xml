@@ -31,4 +31,8 @@
 
     <string name="search_header">Search</string>
     <string name="limit_title">Search limit</string>
+    <string name="application_id_placeholder">App</string>
+    <string name="version_name_placeholder">Version name</string>
+    <string name="version_code_placeholder">Version code</string>
+    <string name="build_type_placeholder">Build type</string>
 </resources>
