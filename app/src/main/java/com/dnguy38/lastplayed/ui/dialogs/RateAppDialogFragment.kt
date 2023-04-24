@@ -1,14 +1,19 @@
 package com.dnguy38.lastplayed.ui.dialogs
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.preference.PreferenceManager
 import com.dnguy38.lastplayed.databinding.FragmentRateAppDialogBinding
 
 class RateAppDialogFragment : DialogFragment() {
     private lateinit var binding: FragmentRateAppDialogBinding
+    private val preferences: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(requireActivity())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +36,7 @@ class RateAppDialogFragment : DialogFragment() {
         }
 
         rateButton.setOnClickListener {
+            preferences.edit().putBoolean("rated", true).apply()
             // TODO: Process rating
             dismiss()
         }

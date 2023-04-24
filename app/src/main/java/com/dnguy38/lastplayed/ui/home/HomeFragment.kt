@@ -45,7 +45,11 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
-        if (preferences.getBoolean("occasional_reminder", true) && (0..10).random() == 0) {
+        if (!preferences.getBoolean("rated", false) && preferences.getBoolean(
+                "occasional_reminder",
+                true
+            ) && (0..10).random() == 0
+        ) {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToRateAppDialogFragment())
         }
 
