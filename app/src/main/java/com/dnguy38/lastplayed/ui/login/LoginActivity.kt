@@ -1,6 +1,7 @@
 package com.dnguy38.lastplayed.ui.login
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -107,7 +108,16 @@ class LoginActivity : AppCompatActivity() {
             }
 
             continueWithoutSigningIn?.setOnClickListener {
-                updateUi()
+                val alertMessage = resources.getString(R.string.alert_not_logged_in)
+                val builder = AlertDialog.Builder(context)
+                with (builder) {
+                    setTitle(R.string.alert_not_logged_in_title)
+                    setMessage(alertMessage)
+                    setPositiveButton(R.string.ok) { _, _ -> updateUi() }
+                    setNegativeButton(R.string.cancel, null)
+                    show()
+                }
+
             }
         }
     }
