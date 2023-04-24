@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
@@ -51,23 +53,38 @@ class SearchFragment : Fragment() {
             searchResults.adapter = SearchResultsAdapter(it.list)
         }
 
+        spinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                search(search.query.toString())
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+        }
+
         search.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {
                 return true
             }
 
             override fun onQueryTextChange(s: String): Boolean {
-                when (spinner.selectedItemPosition) {
-                    0 -> viewModel.search(s, SearchType.Album)
-                    1 -> viewModel.search(s, SearchType.Artist)
-                    2 -> viewModel.search(s, SearchType.Track)
-                }
+                search(s)
 
                 return true
             }
         })
 
         return binding.root
+    }
+
+    fun search(query: String) {
+        val spinner = binding.searchTypeSpinner
+
+        when (spinner.selectedItemPosition) {
+            0 -> viewModel.search(query, SearchType.Album)
+            1 -> viewModel.search(query, SearchType.Artist)
+            2 -> viewModel.search(query, SearchType.Track)
+        }
     }
 
     private inner class SearchResultsViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
