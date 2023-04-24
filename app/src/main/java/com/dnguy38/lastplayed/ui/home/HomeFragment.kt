@@ -1,5 +1,6 @@
 package com.dnguy38.lastplayed.ui.home
 
+import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -12,6 +13,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dnguy38.lastplayed.R
@@ -26,6 +29,9 @@ import java.net.URL
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
+    private val preferences: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(requireActivity())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +44,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater)
+
+        if (preferences.getBoolean("occasional_reminder", true) && (0..10).random() == 0) {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToRateAppDialogFragment())
+        }
 
         val topTracksText = binding.topTracksTextView
         val topTracks = binding.topTracks

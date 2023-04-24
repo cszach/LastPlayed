@@ -45,4 +45,17 @@
     <string name="general_header">General</string>
     <string name="alert_when_not_logged_in_title">Alert when not logged in</string>
     <string name="occasional_reminder_title">Remind to rate the app</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="rate_app_dialog_title">Rate my app</string>
+    <string name="rate_app_dialog_tell_us">Tell me about your experience so far</string>
+    <string name="rate_app_dialog_source">How did you hear about this app?</string>
+    <string name="source_friends">Friends/Family</string>
+    <string name="source_website">Website</string>
+    <string name="source_app_store">App store</string>
+    <string name="source_csc_214">CSC 214</string>
+    <string name="source_other">Other</string>
+    <string name="rating_contentDescription">Rate my app</string>
+    <string name="text_cancel_rating">No thanks</string>
+    <string name="submit_rating">Rate</string>
 </resources>

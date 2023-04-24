@@ -41,11 +41,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         bottomNavView.setupWithNavController(navController)
-        bottomNavView.setOnItemSelectedListener {
-            TODO("Show reminder to rate the app")
-
-            true
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
