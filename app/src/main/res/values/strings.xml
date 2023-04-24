@@ -42,4 +42,6 @@
     <string name="version_code_placeholder">Version code</string>
     <string name="build_type_placeholder">Build type</string>
     <string name="text_sign_up">Sign up</string>
+    <string name="general_header">General</string>
+    <string name="alert_when_not_logged_in_title">Alert when not logged in</string>
 </resources>

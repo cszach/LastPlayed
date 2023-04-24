@@ -3,6 +3,7 @@ package com.dnguy38.lastplayed.ui.login
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -14,6 +15,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import androidx.preference.PreferenceManager
 import com.dnguy38.lastplayed.MainActivity
 import com.dnguy38.lastplayed.databinding.ActivityLoginBinding
 
@@ -24,6 +26,9 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
+    private val preferences: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,16 +113,21 @@ class LoginActivity : AppCompatActivity() {
             }
 
             continueWithoutSigningIn?.setOnClickListener {
-                val alertMessage = resources.getString(R.string.alert_not_logged_in)
-                val builder = AlertDialog.Builder(context)
-                with (builder) {
-                    setTitle(R.string.alert_not_logged_in_title)
-                    setMessage(alertMessage)
-                    setPositiveButton(R.string.ok) { _, _ -> updateUi() }
-                    setNegativeButton(R.string.cancel, null)
-                    show()
-                }
+                val alertWhenNotLoggedIn = preferences.getBoolean("alert_when_not_logged_in", true)
 
+                if (alertWhenNotLoggedIn) {
+                    val alertMessage = resources.getString(R.string.alert_not_logged_in)
+                    val builder = AlertDialog.Builder(context)
+                    with (builder) {
+                        setTitle(R.string.alert_not_logged_in_title)
+                        setMessage(alertMessage)
+                        setPositiveButton(R.string.ok) { _, _ -> updateUi() }
+                        setNegativeButton(R.string.cancel, null)
+                        show()
+                    }
+                } else {
+                    updateUi()
+                }
             }
         }
     }

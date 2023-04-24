@@ -1,6 +1,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <PreferenceCategory android:title="@string/general_header">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="alert_when_not_logged_in"
+            android:title="@string/alert_when_not_logged_in_title" />
+    </PreferenceCategory>
     <PreferenceCategory app:title="@string/search_header">
         <ListPreference
             android:defaultValue="30"
