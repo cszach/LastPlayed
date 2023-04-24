@@ -1,4 +1,10 @@
 <resources>
+    <string-array name="search_options">
+        <item>@string/search_option_album</item>
+        <item>@string/search_option_artist</item>
+        <item>@string/search_option_track</item>
+    </string-array>
+
     <!-- Limit Preference -->
 
     <string-array name="limit_entries">
