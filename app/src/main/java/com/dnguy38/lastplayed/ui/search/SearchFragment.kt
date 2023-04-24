@@ -21,6 +21,7 @@ import com.dnguy38.lastplayed.data.search.SearchResults
 import com.dnguy38.lastplayed.data.search.SearchType
 import com.dnguy38.lastplayed.databinding.FragmentSearchBinding
 import java.io.InputStream
+import java.net.MalformedURLException
 import java.net.URL
 
 class SearchFragment : Fragment() {
@@ -69,11 +70,9 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
-    private inner class SearchResultsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private lateinit var searchResults: SearchResults
+    private inner class SearchResultsViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         private val searchResultImage: ImageView = view.findViewById(R.id.search_result_imageView)
         private val searchTitleView: TextView = view.findViewById(R.id.search_result_title_textView)
-        private val searchTrackArtistView: TextView = view.findViewById(R.id.search_result_artist_textView)
 
         @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(searchResult: SearchResult) {
@@ -82,18 +81,26 @@ class SearchFragment : Fragment() {
             }[0]
 
             val imageDrawable: MutableLiveData<Drawable> =
-                MutableLiveData(ResourcesCompat.getDrawable(resources, when (searchResult.type) {
-                    SearchType.Album, SearchType.Track -> R.drawable.ic_music_note
-                    SearchType.Artist -> R.drawable.ic_action_user
-                }, null))
+                MutableLiveData(
+                    ResourcesCompat.getDrawable(
+                        resources, when (searchResult.type) {
+                            SearchType.Album, SearchType.Track -> R.drawable.ic_music_note
+                            SearchType.Artist -> R.drawable.ic_action_user
+                        }, null
+                    )
+                )
 
             imageDrawable.observe(viewLifecycleOwner) {
                 searchResultImage.setImageDrawable(it)
             }
 
             val networkThread = Thread {
-                val imageStream = URL(image.url).content as InputStream
-                imageDrawable.postValue(Drawable.createFromStream(imageStream, null)!!)
+                try {
+                    val imageStream = URL(image.url).content as InputStream
+                    imageDrawable.postValue(Drawable.createFromStream(imageStream, null)!!)
+                } catch (exception: MalformedURLException) {
+                    exception.printStackTrace()
+                }
             }
 
             networkThread.start()
@@ -103,9 +110,11 @@ class SearchFragment : Fragment() {
             when (searchResult.type) {
                 SearchType.Album -> {
                     val albumMatch = searchResult as AlbumMatch
+                    val searchTrackArtistView: TextView =
+                        view.findViewById(R.id.search_result_artist_textView)
                     searchTrackArtistView.text = albumMatch.artist
                 }
-                SearchType.Artist -> TODO()
+                SearchType.Artist -> {}
                 SearchType.Track -> TODO()
             }
         }
@@ -115,8 +124,8 @@ class SearchFragment : Fragment() {
         RecyclerView.Adapter<SearchResultsViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultsViewHolder {
             val view = when (viewType) {
-                0, 1 -> layoutInflater.inflate(R.layout.album_and_track_search_item, parent, false)
-                2 -> layoutInflater.inflate(R.layout.artist_search_item, parent, false)
+                0, 2 -> layoutInflater.inflate(R.layout.album_and_track_search_item, parent, false)
+                1 -> layoutInflater.inflate(R.layout.artist_search_item, parent, false)
                 else -> throw IllegalStateException("Illegal view type")
             }
 

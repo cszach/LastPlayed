@@ -2,6 +2,7 @@ package com.dnguy38.lastplayed.data
 
 import com.dnguy38.lastplayed.data.last_fm.MobileSessionResponse
 import com.dnguy38.lastplayed.data.last_fm.responses.AlbumSearchResponse
+import com.dnguy38.lastplayed.data.last_fm.responses.ArtistSearchResponse
 import com.dnguy38.lastplayed.data.last_fm.responses.TopArtistsResponse
 import com.dnguy38.lastplayed.data.last_fm.responses.TopTracksResponse
 import retrofit2.Call
@@ -42,4 +43,12 @@ interface LastFmApi {
         @Query("album") album: String,
         @Query("api_key") apiKey: String
     ): Call<AlbumSearchResponse>
+
+    @GET("?method=artist.search&format=json")
+    fun artistSearch(
+        @Query("limit") limit: Int?,
+        @Query("page") page: Int?,
+        @Query("artist") artist: String,
+        @Query("api_key") apiKey: String
+    ): Call<ArtistSearchResponse>
 }

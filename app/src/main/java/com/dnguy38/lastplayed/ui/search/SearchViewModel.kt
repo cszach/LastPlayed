@@ -4,8 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dnguy38.lastplayed.data.last_fm.responses.AlbumSearchResponse
-import com.dnguy38.lastplayed.data.search.AlbumSearchResults
+import com.dnguy38.lastplayed.data.last_fm.responses.*
 import com.dnguy38.lastplayed.LastFmApplication.Companion as Application
 import com.dnguy38.lastplayed.data.search.SearchResults
 import com.dnguy38.lastplayed.data.search.SearchType
@@ -30,7 +29,7 @@ class SearchViewModel : ViewModel() {
         }
     }
 
-    fun searchAlbum(query: String, apiKey: String) {
+    private fun searchAlbum(query: String, apiKey: String) {
         val albumSearchRequest = Application.api.albumSearch(null, null, query, apiKey)
 
         albumSearchRequest.enqueue(object : Callback<AlbumSearchResponse> {
@@ -40,20 +39,43 @@ class SearchViewModel : ViewModel() {
             ) {
                 response.body()?.let {
                     _searchResults.value = AlbumSearchResults(it.results.matches)
+
+                    Log.d(TAG, response.toString())
                 }
             }
 
             override fun onFailure(call: Call<AlbumSearchResponse>, t: Throwable) {
+                // TODO: Display a toast instead?
                 Log.d(TAG, "Failed to search for album")
             }
         })
     }
 
-    fun searchArtist(query: String, apiKey: String) {
-        TODO()
+    private fun searchArtist(query: String, apiKey: String) {
+        val artistSearchRequest = Application.api.artistSearch(null, null, query, apiKey)
+
+        artistSearchRequest.enqueue(object : Callback<ArtistSearchResponse> {
+            override fun onResponse(
+                call: Call<ArtistSearchResponse>,
+                response: Response<ArtistSearchResponse>
+            ) {
+                response.body()?.let {
+                    _searchResults.value = ArtistSearchResults(
+                        it.results?.matches ?: ArtistMatches(emptyList())
+                    )
+
+                    Log.d(TAG, response.toString())
+                }
+            }
+
+            override fun onFailure(call: Call<ArtistSearchResponse>, t: Throwable) {
+                Log.d(TAG, "Failed to search for artist")
+            }
+
+        })
     }
 
-    fun searchTrack(query: String, apiKey: String) {
+    private fun searchTrack(query: String, apiKey: String) {
         TODO()
     }
 }
