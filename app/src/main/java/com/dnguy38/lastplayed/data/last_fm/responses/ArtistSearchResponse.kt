@@ -6,29 +6,29 @@ import com.dnguy38.lastplayed.data.search.SearchResults
 import com.dnguy38.lastplayed.data.search.SearchType
 import com.google.gson.annotations.SerializedName
 
-data class AlbumSearchResponse(
-    val results: AlbumSearchResults
+data class ArtistSearchResponse(
+    val results: ArtistSearchResults?
 )
 
-data class AlbumSearchResults(
-    @SerializedName("albummatches") val matches: AlbumMatches
+data class ArtistSearchResults(
+    @SerializedName("artistmatches") val matches: ArtistMatches,
 ): SearchResults {
     override val list: List<SearchResult>
-        get() = matches.album
+        get() = matches.artist
 }
 
-data class AlbumMatches(
-    val album: List<AlbumMatch>
+data class ArtistMatches(
+    val artist: List<ArtistMatch>
 )
 
-data class AlbumMatch(
+data class ArtistMatch(
     override val name: String,
-    val artist: String,
+    val listeners: Int,
+    val mbid: String,
     val url: String,
-    override val image: List<Image>,
     val streamable: Int,
-    val mbid: String
+    override val image: List<Image>
 ): SearchResult {
     override val type: SearchType
-        get() = SearchType.Album
+        get() = SearchType.Artist
 }
