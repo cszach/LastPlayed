@@ -50,13 +50,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.settingsFragment -> true
+            R.id.settingsFragment -> {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.nav_host_fragment, SettingsFragment())
+                    .addToBackStack(null)
+                    .commit()
+
+                true
+            }
             R.id.infoFragment -> {
-                val infoFragment = InfoFragment.newInstance()
-                val fragmentTransaction = supportFragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.nav_host_fragment, infoFragment)
-                fragmentTransaction.addToBackStack(null)
-                fragmentTransaction.commit()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.nav_host_fragment, InfoFragment())
+                    .addToBackStack(null)
+                    .commit()
 
                 true
             }
