@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dnguy38.lastplayed.R
 import com.dnguy38.lastplayed.data.last_fm.responses.AlbumMatch
+import com.dnguy38.lastplayed.data.last_fm.responses.TrackMatch
 import com.dnguy38.lastplayed.data.search.SearchResult
-import com.dnguy38.lastplayed.data.search.SearchResults
 import com.dnguy38.lastplayed.data.search.SearchType
 import com.dnguy38.lastplayed.databinding.FragmentSearchBinding
 import java.io.InputStream
@@ -115,7 +115,12 @@ class SearchFragment : Fragment() {
                     searchTrackArtistView.text = albumMatch.artist
                 }
                 SearchType.Artist -> {}
-                SearchType.Track -> TODO()
+                SearchType.Track -> {
+                    val trackMatch = searchResult as TrackMatch
+                    val searchTrackArtistView: TextView =
+                        view.findViewById(R.id.search_result_artist_textView)
+                    searchTrackArtistView.text = trackMatch.artist
+                }
             }
         }
     }

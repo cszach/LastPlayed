@@ -11,6 +11,7 @@ import com.dnguy38.lastplayed.data.search.SearchType
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 
 private val TAG = "com.dnguy38.lastplayed.ui.search.SearchViewModel"
 
@@ -38,7 +39,11 @@ class SearchViewModel : ViewModel() {
                 response: Response<AlbumSearchResponse>
             ) {
                 response.body()?.let {
-                    _searchResults.value = AlbumSearchResults(it.results.matches)
+                    if (it.results != null) {
+                        _searchResults.value = it.results!!
+                    } else {
+                        _searchResults.value = AlbumSearchResults(AlbumMatches(emptyList()))
+                    }
 
                     Log.d(TAG, response.toString())
                 }
@@ -60,9 +65,11 @@ class SearchViewModel : ViewModel() {
                 response: Response<ArtistSearchResponse>
             ) {
                 response.body()?.let {
-                    _searchResults.value = ArtistSearchResults(
-                        it.results?.matches ?: ArtistMatches(emptyList())
-                    )
+                    if (it.results != null) {
+                        _searchResults.value = it.results!!
+                    } else {
+                        _searchResults.value = ArtistSearchResults(ArtistMatches(emptyList()))
+                    }
 
                     Log.d(TAG, response.toString())
                 }
@@ -76,6 +83,29 @@ class SearchViewModel : ViewModel() {
     }
 
     private fun searchTrack(query: String, apiKey: String) {
-        TODO()
+        val trackSearchRequest = Application.api.trackSearch(null, null, query, null, apiKey)
+
+        trackSearchRequest.enqueue(object : Callback<TrackSearchResponse> {
+            override fun onResponse(
+                call: Call<TrackSearchResponse>,
+                response: Response<TrackSearchResponse>
+            ) {
+                response.body()?.let {
+                    if (it.results != null) {
+                        _searchResults.value = it.results!!
+                    } else {
+                        _searchResults.value = TrackSearchResults(TrackMatches(emptyList()))
+                    }
+
+                    Log.d(TAG, response.toString())
+                }
+            }
+
+            override fun onFailure(call: Call<TrackSearchResponse>, t: Throwable) {
+                Log.d(TAG, "Failed to search for track")
+
+                throw IOException("Failed to search for track", t)
+            }
+        })
     }
 }
