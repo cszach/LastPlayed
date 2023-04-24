@@ -23,4 +23,8 @@
         <item>Artist</item>
         <item>Track</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_info">Info</string>
+    <string name="menu_settings">Settings</string>
 </resources>
