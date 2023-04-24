@@ -13,7 +13,6 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -104,18 +103,12 @@ class SearchFragment : Fragment() {
                 it.size == "medium"
             }[0]
 
-            val imageDrawable: MutableLiveData<Drawable> =
-                MutableLiveData(
-                    ResourcesCompat.getDrawable(
-                        resources, when (searchResult.type) {
-                            SearchType.Album, SearchType.Track -> R.drawable.ic_music_note
-                            SearchType.Artist -> R.drawable.ic_action_user
-                        }, null
-                    )
-                )
+            val imageDrawable: MutableLiveData<Drawable?> = MutableLiveData(null)
 
             imageDrawable.observe(viewLifecycleOwner) {
-                searchResultImage.setImageDrawable(it)
+                if (it != null) {
+                    searchResultImage.setImageDrawable(it)
+                }
             }
 
             val networkThread = Thread {

@@ -11,6 +11,7 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dnguy38.lastplayed.R
@@ -19,6 +20,7 @@ import com.dnguy38.lastplayed.data.last_fm.responses.TopTrack
 import com.dnguy38.lastplayed.databinding.FragmentHomeBinding
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.InputStream
+import java.net.MalformedURLException
 import java.net.URL
 
 class HomeFragment : Fragment() {
@@ -82,18 +84,24 @@ class HomeFragment : Fragment() {
                 it.size == "large"
             }[0]
 
-            // TODO: do this in a non-blocking way
+            val imageDrawable: MutableLiveData<Drawable?> = MutableLiveData(null)
 
-            lateinit var imageDrawable: Drawable
+            imageDrawable.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    imageView.setImageDrawable(it)
+                }
+            }
 
             val networkThread = Thread {
-                val imageStream = URL(image.url).content as InputStream
-                imageDrawable = Drawable.createFromStream(imageStream, null)!!
-                imageView.setImageDrawable(imageDrawable)
+                try {
+                    val imageStream = URL(image.url).content as InputStream
+                    imageDrawable.postValue(Drawable.createFromStream(imageStream, null)!!)
+                } catch (exception: MalformedURLException) {
+                    exception.printStackTrace()
+                }
             }
 
             networkThread.start()
-            networkThread.join()
 
             titleView.text = track.name
             artistView.text = track.artist.name
@@ -133,18 +141,24 @@ class HomeFragment : Fragment() {
                 it.size == "large"
             }[0]
 
-            // TODO: do this in a non-blocking way
+            val imageDrawable: MutableLiveData<Drawable?> = MutableLiveData(null)
 
-            lateinit var imageDrawable: Drawable
+            imageDrawable.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    imageView.setImageDrawable(it)
+                }
+            }
 
             val networkThread = Thread {
-                val imageStream = URL(image.url).content as InputStream
-                imageDrawable = Drawable.createFromStream(imageStream, null)!!
-                imageView.setImageDrawable(imageDrawable)
+                try {
+                    val imageStream = URL(image.url).content as InputStream
+                    imageDrawable.postValue(Drawable.createFromStream(imageStream, null)!!)
+                } catch (exception: MalformedURLException) {
+                    exception.printStackTrace()
+                }
             }
 
             networkThread.start()
-            networkThread.join()
 
             nameView.text = artist.name
 
