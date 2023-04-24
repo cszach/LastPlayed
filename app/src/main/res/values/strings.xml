@@ -23,6 +23,7 @@
         <item>Artist</item>
         <item>Track</item>
     </string-array>
+    <string name="lastfm_signup_url">https://www.last.fm/join</string>
 
     <string name="menu_info">Info</string>
     <string name="menu_settings">Settings</string>
@@ -35,4 +36,5 @@
     <string name="version_name_placeholder">Version name</string>
     <string name="version_code_placeholder">Version code</string>
     <string name="build_type_placeholder">Build type</string>
+    <string name="text_sign_up">Sign up</string>
 </resources>

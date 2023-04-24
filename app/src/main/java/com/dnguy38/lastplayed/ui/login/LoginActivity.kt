@@ -17,6 +17,7 @@ import com.dnguy38.lastplayed.MainActivity
 import com.dnguy38.lastplayed.databinding.ActivityLoginBinding
 
 import com.dnguy38.lastplayed.R
+import com.dnguy38.lastplayed.SignUpActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -32,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
         val username = binding.username
         val password = binding.password
         val login = binding.login
+        val signUp = binding.signUp
         val continueWithoutSigningIn = binding.continueWithoutSigningIn
         val loading = binding.loading
 
@@ -97,6 +99,11 @@ class LoginActivity : AppCompatActivity() {
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
+            }
+
+            signUp?.setOnClickListener {
+                val signUpIntent = Intent(applicationContext, SignUpActivity::class.java)
+                startActivity(signUpIntent)
             }
 
             continueWithoutSigningIn?.setOnClickListener {
