@@ -7,6 +7,10 @@
             android:defaultValue="true"
             android:key="alert_when_not_logged_in"
             android:title="@string/alert_when_not_logged_in_title" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="occasional_reminder"
+            android:title="@string/occasional_reminder_title" />
     </PreferenceCategory>
     <PreferenceCategory app:title="@string/search_header">
         <ListPreference

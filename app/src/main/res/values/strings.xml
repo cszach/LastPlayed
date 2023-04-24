@@ -44,4 +44,5 @@
     <string name="text_sign_up">Sign up</string>
     <string name="general_header">General</string>
     <string name="alert_when_not_logged_in_title">Alert when not logged in</string>
+    <string name="occasional_reminder_title">Remind to rate the app</string>
 </resources>

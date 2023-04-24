@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         // }
 
         val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_nav)
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -38,7 +39,13 @@ class MainActivity : AppCompatActivity() {
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
+
         bottomNavView.setupWithNavController(navController)
+        bottomNavView.setOnItemSelectedListener {
+            TODO("Show reminder to rate the app")
+
+            true
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
