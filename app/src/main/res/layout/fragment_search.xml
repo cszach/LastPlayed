@@ -33,7 +33,7 @@
 
         <Spinner
             android:id="@+id/search_type_spinner"
-            android:layout_width="110dp"
+            android:layout_width="128dp"
             android:layout_height="48dp"
             android:layout_marginStart="0dp"
             android:entries="@array/search_options" />
