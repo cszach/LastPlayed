@@ -43,9 +43,8 @@ class HomeViewModel : ViewModel() {
                     Log.d(TAG, it.toString())
                 }
             } else {
-                // TODO: Add default country to string resource
-                Log.d(TAG, "Failed to detect country, falling back to United States")
                 country = "United States"
+                Log.d(TAG, "Failed to detect country, falling back to $country")
             }
         }
 
