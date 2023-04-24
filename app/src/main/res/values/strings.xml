@@ -15,4 +15,12 @@
     <string name="action_continue_without_signing_in">Continue without signing in</string>
     <string name="text_geo_top_tracks">Top Tracks in %s</string>
     <string name="text_geo_top_artists">Top Artists in %s</string>
+    <string name="placeholder_title">Title</string>
+    <string name="placeholder_artist">Artist</string>
+    <string name="track_image_contentDescription">The track image or album cover</string>
+    <string-array name="search_options">
+        <item>Album</item>
+        <item>Artist</item>
+        <item>Track</item>
+    </string-array>
 </resources>
